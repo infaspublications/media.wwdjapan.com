@@ -38,9 +38,9 @@ custom:
     binaryMediaTypes:
       - image/*
   bucket:
-    production: media.wwdjapan.com
-    staging: staging-media.wwdjapan.com
-    default: dev-media.wwdjapan.com
+    production: ${env:PRODUCTION_BUCKET}
+    staging: ${env:STAGING_BUCKET}
+    default: ${env:DEFAULT_BUCKET}
 
 plugins:
   - serverless-plugin-custom-binary

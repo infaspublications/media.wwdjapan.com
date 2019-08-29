@@ -18,6 +18,15 @@ $ npm install
 $ docker run -v "$PWD":/var/task lambci/lambda:build-nodejs10.x npm run all-install
 ```
 
+以下の環境変数を設定してください
+
+| TH1 | TH2 |
+|----|---- |
+| PRODUCTION_BUCKET | 本番環境(productionステージ)で使用するバケット |
+| STAGING_BUCKET | ステージング環境(stagingステージ)で使用するバケット |
+| DEFAULT_BUCKET | 開発環境で使用するバケット |
+| TEST_BUCKET | テストで使用するバケット |
+
 ## テスト
 
 `TEST_BUCKE`という環境変数に、画像を設置するS3バケットのバケット名を記載してください
