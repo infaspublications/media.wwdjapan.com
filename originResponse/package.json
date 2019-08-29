@@ -1,5 +1,5 @@
 {
-  "name": "Origin Request",
+  "name": "origin-request",
   "version": "1.0.0",
   "description": "画像のサイズ変換やwebp変換を実施するAPI",
   "main": "originResponse.js",
