@@ -1,0 +1,23 @@
+{
+  "name": "Origin Request",
+  "version": "1.0.0",
+  "description": "画像のサイズ変換やwebp変換を実施するAPI",
+  "main": "originResponse.js",
+  "dependencies": {
+    "sharp": "^0.22.0"
+  },
+  "devDependencies": {
+    "serverless-plugin-custom-binary": "^2.0.0"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infaspublications/media.wwdjapan.com.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/infaspublications/media.wwdjapan.com/issues"
+  },
+  "homepage": "https://github.com/infaspublications/media.wwdjapan.com#readme"
+}

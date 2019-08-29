@@ -1,0 +1,35 @@
+service: cloudfront-edge
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-1
+  memorySize: 128
+  timeout: 5
+  stage: dev
+  role: LambdaEdgeRole
+  logRetentionInDays: 1
+  deploymentBucket:
+    name: wwd.serverless.${self:provider.region}.deploys
+
+functions:
+  viewerRequest:
+    handler: viewerRequest.handler
+
+resources:
+  Resources:
+    LambdaEdgeRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+                  - edgelambda.amazonaws.com
+              Action:
+                - sts:AssumeRole
+        Path: /service-role/
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole

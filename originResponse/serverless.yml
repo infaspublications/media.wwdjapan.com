@@ -1,0 +1,46 @@
+service: wwd-image
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: ap-northeast-1
+  endpointType: regional
+  memorySize: 128
+  timeout: 5
+  stage: dev
+  logRetentionInDays: 1
+  deploymentBucket:
+    name: wwd.serverless.${self:provider.region}.deploys
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+        - "s3:PutObject"
+      Resource:
+        - "arn:aws:s3:::${self:custom.bucket.${self:custom.stage}, self:custom.bucket.default}/*"
+
+functions:
+  originResponse:
+    handler: originResponse.handler
+    timeout: 20
+    memorySize: 512
+    events:
+      - http:
+          path: /{filename+}
+          method: get
+          cors: true
+    environment:
+      BUCKET: ${self:custom.bucket.${self:custom.stage}, self:custom.bucket.default}
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  apiGateway:
+    binaryMediaTypes:
+      - image/*
+  bucket:
+    production: media.wwdjapan.com
+    staging: staging-media.wwdjapan.com
+    default: dev-media.wwdjapan.com
+
+plugins:
+  - serverless-plugin-custom-binary

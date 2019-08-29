@@ -1,0 +1,7 @@
+{
+  "name": "Lambda Edge Viewer Request",
+  "description": "リクエストを処理しやすい形に変換してバックエンドのAPIに渡すLambda@Edge",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {}
+}
