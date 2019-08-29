@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/infaspublications/media.wwdjapan.com/tree/master.svg?style=svg&circle-token=eb8c55ba6dc58240b2672a78343e73dfa6ccc082)](https://circleci.com/gh/infaspublications/media.wwdjapan.com/tree/master)
+[![CircleCI](https://circleci.com/gh/infaspublications/media.wwdjapan.com/tree/master.svg?style=svg&circle-token=eb8c55ba6dc58240b2672a78343e73dfa6ccc082)](https://circleci.com/gh/infaspublications/media.wwdjapan.com/tree/master) [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 # media.wwdjapan.com
 画像圧縮用のLambda@Edgeと画像配信用のAPIサービス。[API Gatewayでサーバレスな画像リサイズAPIを作る](https://qiita.com/akitsukada/items/e6d8fe68c49973d1edf6)のLambda@EdgeとAPI GatewayとLammbdaの部分を構成管理した
