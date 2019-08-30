@@ -44,6 +44,9 @@ $ cd originResponse && npx serverless deploy --stage <ステージ名>
 lambdaEdgeの方については`cloudfront-edge-<ステージ名>-viewerRequest`関数のマネジメントコンソールから
 lambda@Edgeへの手動でデプロイを実施する
 
+**注) `lambdaEdge`と`originResponse`配下の`serverless.yml`にて`deploymentBucket`をハードコーディングしてしまっています。
+ここはデプロイ前に各自の環境に合わせて書き換えを行ってください。**
+
 ## 本番リリース
 タグを作ることでCircleCIからデプロイが実施されます
 
