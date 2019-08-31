@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/infaspublications/media.wwdjapan.com/tree/master.svg?style=svg&circle-token=eb8c55ba6dc58240b2672a78343e73dfa6ccc082)](https://circleci.com/gh/infaspublications/media.wwdjapan.com/tree/master) [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com) [![CircleCI](https://circleci.com/gh/infaspublications/media.wwdjapan.com/tree/master.svg?style=svg&circle-token=eb8c55ba6dc58240b2672a78343e73dfa6ccc082)](https://circleci.com/gh/infaspublications/media.wwdjapan.com/tree/master) [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 # media.wwdjapan.com
 画像圧縮用のLambda@Edgeと画像配信用のAPIサービス。[API Gatewayでサーバレスな画像リサイズAPIを作る](https://qiita.com/akitsukada/items/e6d8fe68c49973d1edf6)のLambda@EdgeとAPI GatewayとLammbdaの部分を構成管理した
@@ -7,7 +7,7 @@
 
 ### 仕様
 - acceptヘッダにimage/webpが含まれている場合(webp対応ブラウザ)はwebpに画像を変換
-- ?w=xxxのクエリがリクエストにある場合はそのサイズに画像を変換
+- ?w=xxxのクエリがリクエストにある場合は[指定した許可サイズ](https://github.com/infaspublications/media.wwdjapan.com/blob/master/lambdaEdge/viewerRequest.js#L9)であれば画像を変換（Dos等で大量の画像が作られるのを防ぐため）
 - widthが1600px以上の場合は1600pxに画像を変換
 
 ## インストール
@@ -20,12 +20,12 @@ $ docker run -v "$PWD":/var/task lambci/lambda:build-nodejs10.x npm run all-inst
 
 以下の環境変数を設定してください
 
-| TH1 | TH2 |
+| 環境変数名 | 用途 |
 |----|---- |
 | PRODUCTION_BUCKET | 本番環境(productionステージ)で使用するバケット |
 | STAGING_BUCKET | ステージング環境(stagingステージ)で使用するバケット |
 | DEFAULT_BUCKET | 開発環境で使用するバケット |
-| TEST_BUCKET | テストで使用するバケット |
+| TEST_BUCKET | インテグレーションテストで使用するバケット |
 
 ## テスト
 
@@ -43,6 +43,9 @@ $ cd originResponse && npx serverless deploy --stage <ステージ名>
 
 lambdaEdgeの方については`cloudfront-edge-<ステージ名>-viewerRequest`関数のマネジメントコンソールから
 lambda@Edgeへの手動でデプロイを実施する
+
+**注) `lambdaEdge`と`originResponse`配下の`serverless.yml`にて`deploymentBucket`をハードコーディングしてしまっています。
+ここはデプロイ前に各自の環境に合わせて書き換えを行ってください。**
 
 ## 本番リリース
 タグを作ることでCircleCIからデプロイが実施されます
