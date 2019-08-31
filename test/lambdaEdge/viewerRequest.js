@@ -3,7 +3,6 @@ const expect = require('chai').expect
 const { handler } = require('../../lambdaEdge/viewerRequest')
 
 describe('#viewerRequest()', () => {
-  beforeEach(() => {})
   it('should convert webp and size uri if the request has w parameter from webp supported browser', () => {
     const event = {
       Records: [
@@ -273,6 +272,45 @@ describe('#viewerRequest()', () => {
         method: 'GET',
         querystring: '',
         uri: '/sxasaxsaxsaxsaxsas'
+      })
+    })
+  })
+
+  it('should convert size to 750 if not allowed size is given', () => {
+    const event = {
+      Records: [
+        {
+          cf: {
+            request: {
+              headers: {
+                accept: [
+                  {
+                    key: 'accept',
+                    value: 'image/png,image/svg+xml,image/*;q=0.8,video/*;q=0.8,*/*;q=0.5'
+                  }
+                ]
+              },
+              method: 'GET',
+              querystring: 'w=9999',
+              uri: '/wp-content/uploads/2019/03/11145930/190311_CDG_og_03.jpg'
+            }
+          }
+        }
+      ]
+    }
+    handler(event, {}, (error, request) => {
+      expect(request).to.deep.equal({
+        headers: {
+          accept: [
+            {
+              key: 'accept',
+              value: 'image/png,image/svg+xml,image/*;q=0.8,video/*;q=0.8,*/*;q=0.5'
+            }
+          ]
+        },
+        method: 'GET',
+        querystring: 'w=9999',
+        uri: '/wp-content/uploads/2019/03/11145930/750/jpg/190311_CDG_og_03.jpg'
       })
     })
   })
