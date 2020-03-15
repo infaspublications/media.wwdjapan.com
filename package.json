@@ -14,6 +14,8 @@
     "prefix:origin-response": "npm --prefix ./originResponse",
     "deploy:edge": "npx serverless deploy --config lambdaEdge/serverless.yml",
 	"deploy:origin": "npx serverless deploy --config originResponse/serverless.yml",
+	"package:origin": "npx serverless package --config originResponse/serverless.yml",
+	"package:edge": "npx serverless package --config lambdaEdge/serverless.yml",
 	"remove:edge": "npx serverless remove --config lambdaEdge/serverless.yml",
     "remove:origin": "npx serverless remove --config originResponse/serverless.yml"
   },
