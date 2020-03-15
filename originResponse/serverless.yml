@@ -9,6 +9,9 @@ provider:
   timeout: 5
   stage: dev
   logRetentionInDays: 1
+  apiGateway:
+    binaryMediaTypes:
+      - image/*
   deploymentBucket:
     name: wwd.serverless.${self:provider.region}.deploys
   iamRoleStatements:
@@ -34,13 +37,7 @@ functions:
 
 custom:
   stage: ${opt:stage, self:provider.stage}
-  apiGateway:
-    binaryMediaTypes:
-      - image/*
   bucket:
     production: ${env:PRODUCTION_BUCKET}
     staging: ${env:STAGING_BUCKET}
     default: ${env:DEFAULT_BUCKET}
-
-plugins:
-  - serverless-plugin-custom-binary

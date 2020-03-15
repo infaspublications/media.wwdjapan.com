@@ -47,27 +47,15 @@ async function deleteS3Object(bucket, key) {
 }
 
 function deployService(stage, service) {
-  const args = {
+  execSync(`npm run deploy:${service} -- --stage ${stage}`, {
     stdio: 'inherit'
-  }
-
-  if (process.env.CIRCLE_WORKING_DIRECTORY) {
-    args['cwd'] = process.env.CIRCLE_WORKING_DIRECTORY
-  }
-
-  execSync(`npm run deploy:${service} -- --stage ${stage}`, args)
+  })
 }
 
 function removeService(stage, service) {
-  const args = {
+  execSync(`npm run remove:${service} -- --stage ${stage}`, {
     stdio: 'inherit'
-  }
-
-  if (process.env.CIRCLE_WORKING_DIRECTORY) {
-    args['cwd'] = process.env.CIRCLE_WORKING_DIRECTORY
-  }
-
-  execSync(`npm run remove:${service} -- --stage ${stage}`, args)
+  })
 }
 
 async function deployWithRandomStage(service, configPath) {
