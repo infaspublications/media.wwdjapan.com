@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 executors:
   default:
@@ -85,7 +85,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - deploy_stage:
+      - deploy-stage:
           requires:
             - build
           filters:
