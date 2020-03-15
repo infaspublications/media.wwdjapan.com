@@ -1,3 +1,4 @@
 .serverless
 .eslintcache
 node_modules
+.envrc
