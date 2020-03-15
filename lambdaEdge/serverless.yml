@@ -14,7 +14,7 @@ provider:
 
 functions:
   viewerRequest:
-    handler: viewerRequest.handler
+    handler: lambdaEdge/viewerRequest.handler
 
 package:
   exclude:
