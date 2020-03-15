@@ -6,9 +6,7 @@
   "dependencies": {
     "sharp": "^0.22.0"
   },
-  "devDependencies": {
-    "serverless-plugin-custom-binary": "^2.0.0"
-  },
+  "devDependencies": {},
   "scripts": {},
   "repository": {
     "type": "git",
