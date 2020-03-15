@@ -7,11 +7,12 @@ const { deployWithRandomStage, removeService, putS3Object, deleteS3Object } = re
 describe('#originResponse()', () => {
   let endpoint
   let stage
-  const config = 'originResponse/serverless.yml'
+  const configPath = 'originResponse/serverless.yml'
+  const service = 'origin'
   const bucket = process.env.TEST_BUCKET
 
   before(async () => {
-    const result = await deployWithRandomStage(config)
+    const result = await deployWithRandomStage(service, configPath)
     stage = result.stage
     endpoint = result.endpoint
     await putS3Object(bucket, `${stage}/150x150.png`, 'test/originResponse/materials/150x150.png')
@@ -117,6 +118,6 @@ describe('#originResponse()', () => {
     deleteS3Object(bucket, `${stage}/30/png/150x150.png`)
     deleteS3Object(bucket, `${stage}/20/webp/150x150.png`)
     deleteS3Object(bucket, `${stage}/robots.txt`)
-    removeService(stage, config)
+    removeService(stage, service, configPath)
   })
 })

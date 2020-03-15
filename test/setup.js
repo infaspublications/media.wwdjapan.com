@@ -3,7 +3,6 @@
 const _ = require('lodash')
 const yaml = require('js-yaml')
 const fs = require('fs')
-const path = require('path')
 const execSync = require('child_process').execSync
 const aws = require('aws-sdk')
 const s3 = new aws.S3()
@@ -47,27 +46,25 @@ async function deleteS3Object(bucket, key) {
     .promise()
 }
 
-function deployService(stage, config) {
-  execSync(`npx serverless deploy --stage ${stage} --config ${path.basename(config)}`, {
-    stdio: 'inherit',
-    cwd: path.dirname(config)
+function deployService(stage, service) {
+  execSync(`npm run deploy:${service} -- --stage ${stage}`, {
+    stdio: 'inherit'
   })
 }
 
-function removeService(stage, config) {
-  execSync(`npx serverless remove --stage ${stage} --config ${path.basename(config)}`, {
-    stdio: 'inherit',
-    cwd: path.dirname(config)
+function removeService(stage, service) {
+  execSync(`npm run remove:${service} -- --stage ${stage}`, {
+    stdio: 'inherit'
   })
 }
 
-async function deployWithRandomStage(config, dir) {
-  const serviceName = yaml.safeLoad(fs.readFileSync(config)).service
+async function deployWithRandomStage(service, configPath) {
+  const serviceName = yaml.safeLoad(fs.readFileSync(configPath)).service
   const stage = Math.random()
     .toString(32)
     .substring(2)
   const stackName = `${serviceName}-${stage}`
-  deployService(stage, config, dir)
+  deployService(stage, service)
   const outputs = await getStackOutputs(stackName)
   const endpoint = getApiGatewayEndpoint(outputs)
 

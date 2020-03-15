@@ -13,7 +13,9 @@
     "prefix:lambda-edge": "npm --prefix ./lambdaEdge",
     "prefix:origin-response": "npm --prefix ./originResponse",
     "deploy:edge": "npx serverless deploy --config lambdaEdge/serverless.yml",
-    "deploy:origin": "npx serverless deploy --config originResponse/serverless.yml"
+	"deploy:origin": "npx serverless deploy --config originResponse/serverless.yml",
+	"remove:edge": "npx serverless remove --config lambdaEdge/serverless.yml",
+    "remove:origin": "npx serverless remove --config originResponse/serverless.yml"
   },
   "husky": {
     "hooks": {
