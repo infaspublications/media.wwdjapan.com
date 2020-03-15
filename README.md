@@ -46,13 +46,14 @@ $ npm run test-originresponse　# 画像配信用API側のテスト
 ```
 
 ## デプロイ
+以下のコマンドで任意のステージにデプロイされます。また、masterブランチへのpushのタイミングで、developmentとstagingブランチへは自動でデプロイが走ります(lambda@Edgeへは手動でのデプロイが必要)
 ```shell
 $ npm run deploy:edge -- --stage <ステージ名> # lambdaEdgeのデプロイ
 $ npm run deploy:origin -- --stage <ステージ名>　# originResponseのデプロイ
 ```
 
 lambdaEdgeの方については`cloudfront-edge-<ステージ名>-viewerRequest`関数のマネジメントコンソールから
-lambda@Edgeへの手動でデプロイを実施する
+lambda@Edgeへの手動でデプロイを実施してください。
 
 **注) `lambdaEdge`と`originResponse`配下の`serverless.yml`にて`deploymentBucket`をハードコーディングしてしまっています。
 ここはデプロイ前に各自の環境に合わせて書き換えを行ってください。**
