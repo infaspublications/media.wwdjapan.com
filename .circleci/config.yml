@@ -53,6 +53,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
+      - run: npm install
+      - run: npm run all-install
       - deploy:
           name: deploy edge for dev
           command: npm run deploy:edge -- --stage development
@@ -71,6 +73,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
+      - run: npm install
+      - run: npm run all-install
       - deploy:
           name: deploy edge for prod
           command: npm run deploy:edge -- --stage production
