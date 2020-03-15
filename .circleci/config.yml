@@ -25,10 +25,6 @@ jobs:
           key: v2-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Formatting coding standard by prettier
-          command: npm run fmt
-
-      - run:
           name: Check coding standard by ESLint
           command: npm run lint
 
