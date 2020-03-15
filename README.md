@@ -18,10 +18,20 @@ $ npm install
 $ docker run -v "$PWD":/var/task lambci/lambda:build-nodejs10.x npm run all-install
 ```
 
-以下の環境変数を設定してください
+direnvを使用して環境変数を管理します。以下の環境変数を設定してください
+
+```shell
+$ cp -pr .envrc.sample .envrc
+$ vi .envrc # edit
+
+# allow
+$ direnv allow
+```
 
 | 環境変数名 | 用途 |
 |----|---- |
+| AWS_ACCESS_KEY_ID | AWSアクセスキーID |
+| AWS_SECRET_ACCESS_KEY | AWSシークレットキー |
 | PRODUCTION_BUCKET | 本番環境(productionステージ)で使用するバケット |
 | STAGING_BUCKET | ステージング環境(stagingステージ)で使用するバケット |
 | DEFAULT_BUCKET | 開発環境で使用するバケット |
@@ -37,8 +47,8 @@ $ npm run test-originresponse　# 画像配信用API側のテスト
 
 ## デプロイ
 ```shell
-$ cd lambdaEdge && npx serverless deploy --stage <ステージ名>
-$ cd originResponse && npx serverless deploy --stage <ステージ名>
+$ npm run deploy:edge -- --stage <ステージ名> # lambdaEdgeのデプロイ
+$ npm run deploy:origin -- --stage <ステージ名>　# originResponseのデプロイ
 ```
 
 lambdaEdgeの方については`cloudfront-edge-<ステージ名>-viewerRequest`関数のマネジメントコンソールから

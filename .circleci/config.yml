@@ -1,10 +1,15 @@
-version: 2
-jobs:
-  build:
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/repo
     docker:
       - image: lambci/lambda:build-nodejs10.x
 
-    working_directory: ~/repo
+jobs:
+  build:
+    executor:
+      name: default
 
     steps:
       - checkout
@@ -37,21 +42,41 @@ jobs:
       - run:
           name: Run originResponse test
           command: npm run test-originresponse
-  deploy-prod:
-    docker:
-      - image: lambci/lambda:build-nodejs10.x
 
-    working_directory: ~/repo
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - ./*
+  deploy-stage:
+    executor:
+      name: default
     steps:
-      - checkout
-      - run: npm install
-      - run: npm run all-install
-      - run:
-          name: chmod to deploy script
-          command: chmod -R +x ./sh/*
+      - attach_workspace:
+          at: ~/repo
       - deploy:
-          name: deploy for production
-          command: ./sh/deploy.sh
+          name: deploy edge for dev
+          command: npm run deploy:edge -- --stage development
+      - deploy:
+          name: deploy origin for dev
+          command: npm run deploy:origin -- --stage development
+      - deploy:
+          name: deploy edge for stage
+          command: npm run deploy:edge -- --stage staging
+      - deploy:
+          name: deploy origin for stage
+          command: npm run deploy:origin -- --stage staging
+  deploy-prod:
+    executor:
+      name: default
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - deploy:
+          name: deploy edge for prod
+          command: npm run deploy:edge -- --stage production
+      - deploy:
+          name: deploy origin for prod
+          command: npm run deploy:origin -- --stage production
 workflows:
   version: 2
   build-deploy:
@@ -60,6 +85,12 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - deploy-stage:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
       - deploy-prod:
           requires:
             - build

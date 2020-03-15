@@ -1,0 +1,6 @@
+export AWS_ACCESS_KEY_ID=xxxxx
+export AWS_SECRET_ACCESS_KEY=yyyy
+export PRODUCTION_BUCKET="本番のS3バケット"
+export STAGING_BUCKET="ステージングのS3バケット"
+export DEFAULT_BUCKET="devのS3バケット"
+export TEST_BUCKET="インテグレーションテストのS3バケット"
