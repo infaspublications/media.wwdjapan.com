@@ -16,6 +16,12 @@ functions:
   viewerRequest:
     handler: viewerRequest.handler
 
+package:
+  exclude:
+    - "**"
+  include:
+    - "lambdaEdge/**"
+
 resources:
   Resources:
     LambdaEdgeRole:
