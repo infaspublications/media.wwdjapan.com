@@ -89,6 +89,7 @@ exports.handler = (event, context, callback) => {
     request.uri = fwdUri
     callback(null, request)
   } catch (error) {
+    // pass through
     callback(null, event.Records[0].cf.request)
   }
 }
