@@ -36,6 +36,9 @@ $ direnv allow
 | STAGING_BUCKET | ステージング環境(stagingステージ)で使用するバケット |
 | DEFAULT_BUCKET | 開発環境で使用するバケット |
 | TEST_BUCKET | インテグレーションテストで使用するバケット |
+| PRODUCTION_DISTRIBUTION_ID | 本番環境(productionステージ)のdistribution_id |
+| STAGING_DISTRIBUTION_ID | ステージング環境(stagingステージ)のdistribution_id|
+| DEFAULT_DISTRIBUTION_ID | 開発環境のdistribution_id|
 
 ## テスト
 
