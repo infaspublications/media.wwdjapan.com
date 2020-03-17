@@ -36,6 +36,9 @@ $ direnv allow
 | STAGING_BUCKET | ステージング環境(stagingステージ)で使用するバケット |
 | DEFAULT_BUCKET | 開発環境で使用するバケット |
 | TEST_BUCKET | インテグレーションテストで使用するバケット |
+| PRODUCTION_DISTRIBUTION_ID | 本番環境(productionステージ)のdistribution_id |
+| STAGING_DISTRIBUTION_ID | ステージング環境(stagingステージ)のdistribution_id|
+| DEFAULT_DISTRIBUTION_ID | 開発環境のdistribution_id|
 
 ## テスト
 
@@ -46,7 +49,7 @@ $ npm run test-originresponse　# 画像配信用API側のテスト
 ```
 
 ## デプロイ
-以下のコマンドで任意のステージにデプロイされます。また、masterブランチへのpushのタイミングで、developmentとstagingブランチへは自動でデプロイが走ります(lambda@Edgeへは手動でのデプロイが必要)
+以下のコマンドで任意のステージにデプロイされます。また、masterブランチへのpushのタイミングで、developmentとstagingブランチへは自動でデプロイが走ります
 ```shell
 $ npm run deploy:edge -- --stage <ステージ名> # lambdaEdgeのデプロイ
 $ npm run deploy:origin -- --stage <ステージ名>　# originResponseのデプロイ
@@ -66,5 +69,3 @@ $ git tag 1.0.0
 $ git push origin 1.0.0
 ```
 
-lambda@Edgeへのデプロイは、CircleCIからのデプロイ完了後に
-`cloudfront-edge-production-viewerRequest`関数のマネジメントコンソールから手動で実施する

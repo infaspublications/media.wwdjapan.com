@@ -15,12 +15,28 @@ provider:
 functions:
   viewerRequest:
     handler: lambdaEdge/viewerRequest.handler
+    events:
+      - preExistingCloudFront:
+          distributionId: ${self:custom.distribution.${self:custom.stage}, self:custom.distribution.default}
+          eventType: viewer-request
+          pathPattern: '*'
+          includeBody: false
 
 package:
   exclude:
     - "**"
   include:
     - "lambdaEdge/**"
+
+plugins:
+  - serverless-lambda-edge-pre-existing-cloudfront
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  distribution:
+    production: ${env:PRODUCTION_DISTRIBUTION_ID}
+    staging: ${env:STAGING_DISTRIBUTION_ID}
+    default: ${env:DEFAULT_DISTRIBUTION_ID}
 
 resources:
   Resources:
