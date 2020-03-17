@@ -49,7 +49,7 @@ $ npm run test-originresponse　# 画像配信用API側のテスト
 ```
 
 ## デプロイ
-以下のコマンドで任意のステージにデプロイされます。また、masterブランチへのpushのタイミングで、developmentとstagingブランチへは自動でデプロイが走ります(lambda@Edgeへは手動でのデプロイが必要)
+以下のコマンドで任意のステージにデプロイされます。また、masterブランチへのpushのタイミングで、developmentとstagingブランチへは自動でデプロイが走ります
 ```shell
 $ npm run deploy:edge -- --stage <ステージ名> # lambdaEdgeのデプロイ
 $ npm run deploy:origin -- --stage <ステージ名>　# originResponseのデプロイ
@@ -69,5 +69,3 @@ $ git tag 1.0.0
 $ git push origin 1.0.0
 ```
 
-lambda@Edgeへのデプロイは、CircleCIからのデプロイ完了後に
-`cloudfront-edge-production-viewerRequest`関数のマネジメントコンソールから手動で実施する
